@@ -1,4 +1,5 @@
 LeaderPage.jsp
+LoginByMailController
 MemberPage.jsp
 ViewYourEvent.jsp
 LoginController
