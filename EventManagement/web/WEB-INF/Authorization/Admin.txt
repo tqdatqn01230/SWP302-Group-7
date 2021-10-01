@@ -3,6 +3,7 @@ MemberPage.jsp
 LeaderPage.jsp
 LoginController
 LogoutController
+LoginByMailController
 CommentOnPostController
 SearchEventsController
 ViewPostsController
