@@ -1,4 +1,5 @@
 MemberPage.jsp
+LoginByMailController
 LoginController
 LogoutController
 CommentOnPostController
