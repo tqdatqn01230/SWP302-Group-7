@@ -5,3 +5,4 @@ ConfirmMailRegisterController
 RegisterPage.jsp
 ConfirmMailRegister.jsp
 RegisterSuccess.html
+LoginByMailController
