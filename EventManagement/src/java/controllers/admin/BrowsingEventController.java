@@ -41,7 +41,6 @@ public class BrowsingEventController extends HttpServlet {
             int EventID=Integer.parseInt(request.getParameter("EventID"));
             EventsDAO dao=new EventsDAO();
             dao.UpdateStatus(EventID, 1);
-            dao.CloseConnection();
         } catch (SQLException ex) {
             Logger.getLogger(BrowsingEventController.class.getName()).log(Level.SEVERE, null, ex);
         }finally{
