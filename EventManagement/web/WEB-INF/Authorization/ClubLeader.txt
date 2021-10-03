@@ -1,5 +1,4 @@
 LeaderPage.jsp
-LoginByMailController
 MemberPage.jsp
 ViewYourEvent.jsp
 LoginController
@@ -24,3 +23,4 @@ ChangeCommentController
 DeleteCommentController
 DeleteReplyController
 ChangeReplyController
+LoginByMailController

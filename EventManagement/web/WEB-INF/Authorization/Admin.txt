@@ -3,7 +3,6 @@ MemberPage.jsp
 LeaderPage.jsp
 LoginController
 LogoutController
-LoginByMailController
 CommentOnPostController
 SearchEventsController
 ViewPostsController
@@ -12,3 +11,4 @@ ReplyOnCommentController
 FollowEventController
 ViewPendingEventsController
 BrowsingEventController
+LoginByMailController

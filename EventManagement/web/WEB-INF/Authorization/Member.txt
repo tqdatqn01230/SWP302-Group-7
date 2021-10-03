@@ -1,5 +1,4 @@
 MemberPage.jsp
-LoginByMailController
 LoginController
 LogoutController
 CommentOnPostController
@@ -14,3 +13,4 @@ ChangeCommentController
 DeleteCommentController
 DeleteReplyController
 ChangeReplyController
+LoginByMailController

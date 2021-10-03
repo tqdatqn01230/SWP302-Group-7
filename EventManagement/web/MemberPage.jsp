@@ -43,10 +43,13 @@
             for (EventsDTO event:listEvents){
             %>
             <div>
-                <div><h2>Event post by <%=event.getUserID() %></h2></div>
+                <div><h2>Event post by <%=event.getUserName() %></h2></div>
                 <div><h3><%=event.getEventContent() %> </h3> </div>
                 <div><p>Followers: <%=event.getFolowers() %></p></div>
                 <div><p>Max Followers <%=event.getMaxFollowers() %></p></div>
+                <div><p>Location: <%=event.getLocation()%></p></div>
+                <div><p>Start time: <%=event.getStarttime()%></p></div>
+                <div><p>End time: <%=event.getEndtime()%></p></div>
                 <% String button="Follow";
                     if (listEventFollow.contains(event.getEventID())) button="Unfollow"; %>
                 <div>

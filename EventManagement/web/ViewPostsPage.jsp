@@ -34,8 +34,11 @@
         <form action='ViewEventsController'>
             <input type='submit' value='Back to View Events'>
         </form>
-        <div><h2>Event post by <%=event.getUserID() %></h2></div>
+        <div><h2>Event post by <%=event.getUserName()%></h2></div>
         <div><h3><%=event.getEventContent() %> </h3> </div>
+        <div><p>Location: <%=event.getLocation()%></p></div>
+        <div><p>Start time: <%=event.getStarttime()%></p></div>
+        <div><p>End time: <%=event.getEndtime()%></p></div>
         <%if (check){%>
         <form action='PostController'>
             <input type='text' name='PostContent' Placeholder='Enter Post Content Here'/>
