@@ -11,8 +11,52 @@ package models.events;
  */
 public class EventsDTO {
     private int EventID,userID;
-    private String EventContent;
+    private String Location,UserName,Starttime,Endtime,EventContent;
     private int Folowers,MaxFollowers;
+
+    public EventsDTO(int EventID, int userID, String Location, String UserName, String Starttime, String Endtime, String EventContent, int Folowers, int MaxFollowers) {
+        this.EventID = EventID;
+        this.userID = userID;
+        this.Location = Location;
+        this.UserName = UserName;
+        this.Starttime = Starttime;
+        this.Endtime = Endtime;
+        this.EventContent = EventContent;
+        this.Folowers = Folowers;
+        this.MaxFollowers = MaxFollowers;
+    }
+
+    public void setLocation(String Location) {
+        this.Location = Location;
+    }
+
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+
+    public void setStarttime(String Starttime) {
+        this.Starttime = Starttime;
+    }
+
+    public void setEndtime(String Endtime) {
+        this.Endtime = Endtime;
+    }
+
+    public String getLocation() {
+        return Location;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public String getStarttime() {
+        return Starttime;
+    }
+
+    public String getEndtime() {
+        return Endtime;
+    }
 
     public EventsDTO(int EventID, int UserName, String EventContent, int Folowers, int MaxFollowers) {
         this.EventID = EventID;

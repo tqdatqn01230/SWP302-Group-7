@@ -59,13 +59,16 @@ public class EventsDAO {
         try{
             conn=DButils.getConnection1();
             if (conn!=null){
-                String sql="SELECT * FROM tblEvents WHERE UserID = ? AND status=1 "
-                        + " ORDER BY EventID DESC";
+                String sql="SELECT u.Username,e.EventID,e.UserID,e.EventContent,e.Followers,e.MaxFollower,t.starttime,t.endtime,l.LocationName \n" +
+                            "FROM tblEvents e,tblTimetable t,tblLocation l,tblUsers u\n" +
+                            "WHERE e.UserID = ? AND e.status=1 AND e.EventID=t.EventID AND l.LocationID=t.LocationID and e.userID=u.userID\n" +
+                            "ORDER BY e.EventID DESC";
                 stm=conn.prepareStatement(sql);
                 stm.setInt(1,userID);
                 rs=stm.executeQuery();
                 while (rs.next()){
-                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("EventContent")
+                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("LocationName"),
+                    rs.getString("UserName"),rs.getString("starttime"),rs.getString("endtime"),rs.getString("EventContent")
                     ,rs.getInt("Followers"),rs.getInt("MaxFollower"));
                     list.add(eva);
                 }   
@@ -80,13 +83,16 @@ public class EventsDAO {
         try{
             conn=DButils.getConnection1();
             if (conn!=null){
-                String sql="SELECT * FROM tblEvents WHERE EventContent like ? AND status=1 "
-                        + " ORDER BY EventID DESC";
+                String sql="SELECT u.Username,e.EventID,e.UserID,e.EventContent,e.Followers,e.MaxFollower,t.starttime,t.endtime,l.LocationName \n" +
+                        "FROM tblEvents e,tblTimetable t,tblLocation l,tblUsers u\n" +
+                        "WHERE e.EventContent like ? AND e.status=1 AND e.EventID=t.EventID AND l.LocationID=t.LocationID and e.userID=u.userID\n" +
+                         "ORDER BY e.EventID DESC";
                 stm=conn.prepareStatement(sql);
                 stm.setString(1, "%"+eventContent+"%");
                 rs=stm.executeQuery();
                 while (rs.next()){
-                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("EventContent")
+                   EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("LocationName"),
+                    rs.getString("UserName"),rs.getString("starttime"),rs.getString("endtime"),rs.getString("EventContent")
                     ,rs.getInt("Followers"),rs.getInt("MaxFollower"));
                     list.add(eva);
                 }   
@@ -101,16 +107,19 @@ public class EventsDAO {
         try{
             conn=DButils.getConnection1();
             if (conn!=null){
-                String sql="declare @currentdate datetime \n" +
-                            "set @currentdate = ? \n" +
-                            "Select e.EventID,e.UserID,e.EventContent,e.Followers,e.MaxFollower from tblEvents e \n" +
-        "WHERE e.EventID in (Select EventID from tblTimetable where cast(endtime as float) > cast(@currentdate as float)) AND e.Status=1\n" +
-                            "Order By EventID DESC";
+                String sql="DECLARE @currentdate datetime  \n" +
+"SET @currentdate = ?\n" +
+"SELECT u.Username,e.EventID,e.UserID,e.EventContent,e.Followers,e.MaxFollower,t.starttime,t.endtime,l.LocationName  \n" +
+"FROM tblEvents e ,tblTimetable t,tblLocation l,tblUsers u\n" +
+"WHERE e.EventID in (Select EventID from tblTimetable where cast(endtime as float) > cast(@currentdate as float)) AND e.Status=1\n" +
+"AND e.EventID=t.EventID AND l.LocationID=t.LocationID and e.userID=u.userID\n" +
+"Order By EventID DESC";
                 stm=conn.prepareStatement(sql);
                 stm.setString(1,date);
                 rs=stm.executeQuery();
                 while (rs.next()){
-                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("EventContent")
+                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("LocationName"),
+                    rs.getString("UserName"),rs.getString("starttime"),rs.getString("endtime"),rs.getString("EventContent")
                     ,rs.getInt("Followers"),rs.getInt("MaxFollower"));
                     list.add(eva);
                 }   
@@ -125,11 +134,15 @@ public class EventsDAO {
         try{
             conn=DButils.getConnection1();
             if (conn!=null){
-                String sql="Select * from tblEvents Where status=0";
+                String sql="SELECT u.Username,e.EventID,e.UserID,e.EventContent,e.Followers,e.MaxFollower,t.starttime,t.endtime,l.LocationName \n" +
+"FROM tblEvents e,tblTimetable t,tblLocation l,tblUsers u \n" +
+"Where e.status=0 AND e.EventID=t.EventID AND l.LocationID=t.LocationID and e.userID=u.userID\n" +
+"ORDER BY e.EventID DESC";
                 stm=conn.prepareStatement(sql);
                 rs=stm.executeQuery();
                 while (rs.next()){
-                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("EventContent")
+                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("LocationName"),
+                    rs.getString("UserName"),rs.getString("starttime"),rs.getString("endtime"),rs.getString("EventContent")
                     ,rs.getInt("Followers"),rs.getInt("MaxFollower"));
                     list.add(eva);
                 }   
@@ -160,12 +173,18 @@ public class EventsDAO {
         try{
             conn=DButils.getConnection1();
             if (conn!=null){
-                String sql="Select * From tblEvents where EventID = ?";
+                String sql="SELECT u.Username,e.EventID,e.UserID,e.EventContent,e.Followers,e.MaxFollower,t.starttime,t.endtime,l.LocationName \n" +
+"FROM tblEvents e,tblTimetable t,tblLocation l,tblUsers u\n" +
+"where e.EventID = 3 AND e.EventID=t.EventID AND l.LocationID=t.LocationID and e.userID=u.userID";
                 stm=conn.prepareStatement(sql);
                 stm.setInt(1, eventID);
                 rs=stm.executeQuery();
-                if(rs.next()) res= new EventsDTO(eventID,rs.getInt("UserID"),rs.getString("EventContent")
+                if(rs.next()) {
+                    EventsDTO eva=new EventsDTO(rs.getInt("EventID"),rs.getInt("UserID"),rs.getString("LocationName"),
+                    rs.getString("UserName"),rs.getString("starttime"),rs.getString("endtime"),rs.getString("EventContent")
                     ,rs.getInt("Followers"),rs.getInt("MaxFollower"));
+                    res= eva;
+                }
             }
         }finally{
             CloseConnection();
